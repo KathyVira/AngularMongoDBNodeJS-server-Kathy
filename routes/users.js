@@ -1,3 +1,6 @@
+//ROUTS מוסכמה שהוא יהיה בנפרד 
+// מודולים שאני מקימה שבנוי 
+
 const {
     User,
     validate
@@ -6,13 +9,13 @@ const {
 const authMiddelware = require('../middelware/auth');
 // const _ = require('lodash');
 
-const bcrypt = require('bcrypt')
-const express = require('express'); //for use of router
-const router = express.Router();
+const bcrypt = require('bcrypt') // מצפין את הסיסמה
+const express = require('express'); //בשביל להשתמש ב EXPRESS
+const router = express.Router(); //for use of router של EXPRESS
 
 
 router.post('/', async (req, res) => {
-    console.log('in users.js router.post() ');
+    // console.log('in users.js router.post() ');
     const {
         error
     } = validate(req.body);
@@ -27,7 +30,7 @@ router.post('/', async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt); //כמה מורכבת הולכת להיות ההצפנה
     await user.save();
     res.send(user);
-    
+
     // res.send(_.pick(user, ['_id', 'name', 'email']));
 });
 
@@ -41,5 +44,5 @@ router.post('/authUser', authMiddelware, async (req, res) => {
 // router.post('/oneUser');
 
 
-
+// מיצאת החוצה את הROUTER שיצרתי
 module.exports = router;

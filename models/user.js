@@ -7,38 +7,38 @@ const config = require('config');
 const userSchema = new mongoose.Schema({
     userName: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         maxlength: 255
     },
     nickName: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         maxlength: 255
     },
     age: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         maxlength: 3
     },
     email: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         maxlength: 255,
         unique: true
     },
     password: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         maxlength: 1024
     },
     avatar: {
         type: String,
-        required: true,
+        // required: true,
         minlength: 2,
         maxlength: 255
     }
@@ -48,15 +48,16 @@ const userSchema = new mongoose.Schema({
     // }
 });
 
-// userSchema.methods.generateAuthToken = function () {
-//     const token = jwt.sign({
-//         _id: this._id,
+userSchema.methods.generateAuthToken = function () {
+    const token = jwt.sign({
+        _id: this._id,
+    }, config.jwtKey);
+    return token;
+    // console.log(token);
 
-//     }, config.jwtKey);
-//     return token;
-//     // console.log(token);
+};
 
-// };
+
 
 
 const User = mongoose.model('User', userSchema);
